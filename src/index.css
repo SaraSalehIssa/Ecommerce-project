@@ -1,0 +1,12 @@
+.bg-body-lightSkyBlue, .btn-lightSkyBlue{
+    background-color: #b6e1fc !important;
+}
+
+.btn-lightSkyBlue:hover{
+    background-color: #9dd7fb !important;
+}
+
+.bg-lightSkyBlue{
+    background-color: #e7f5fe;
+    border-radius: 2%;
+}
