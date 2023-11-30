@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { Link } from 'react-router-dom';
 import { useQuery } from 'react-query'
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination, Autoplay } from 'swiper/modules';
@@ -11,7 +12,7 @@ import '../../../index.css'
 
 function WebCategories() {
   const getCategories = async () => {
-    const { data } = await axios.get('https://ecommerce-node4.vercel.app/categories');
+    const { data } = await axios.get(`${import.meta.env.VITE_API_URL}/categories`);
     return data;
   }
   const { data, isLoading } = useQuery('web_categories', getCategories);
@@ -38,10 +39,14 @@ function WebCategories() {
           onSwiper={(swiper) => console.log(swiper)}
           onSlideChange={() => console.log('slide change')}
         >
-          {data?.categories.length ? data?.categories.map((category) =>
+          {data.categories.length ? data.categories.map((category) =>
             <SwiperSlide className='swiper' key={category._id}>
-              <img src={category.image.secure_url} className="rounded-circle image-card p-3" alt="..." />
-              <h5 className="text-center fs-5">{category.name}</h5>
+              <Link to={`/products/category/${category._id}`}>
+                <div>
+                  <img src={category.image.secure_url} className="rounded-circle image-card p-3" alt="category image..." />
+                  <h5 className="text-center fs-5">{category.name}</h5>
+                </div>
+              </Link>
             </SwiperSlide>
           ) : 'No categories found!'}
         </Swiper>

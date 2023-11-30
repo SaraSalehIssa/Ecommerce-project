@@ -6,12 +6,13 @@ import Register from './components/web/register/Register';
 import Login from './components/web/login/Login';
 import WebHome from './components/web/home/WebHome';
 import WebCategories from './components/web/categories/WebCategories';
+import CategoriesDetails from './components/web/categories/CategoriesDetails';
+import Product from './components/web/products/Product';
 import WebPageNotFound from './components/web/pageNotFound/WebPageNotFound';
 import AdminLayout from './layouts/AdminLayout';
 import AdminHome from './components/dashboard/home/AdminHome';
 import AdminCategories from './components/dashboard/categories/AdminCategories';
 import AdminPageNotFound from './components/dashboard/pageNotFound/AdminPageNotFound';
-
 
 function App() {
   const [user, setUser] = useState(null);
@@ -41,12 +42,20 @@ function App() {
           element: <Login saveCurrentUser={saveCurrentUser} />
         },
         {
-          index:true, //same as path: '/'
+          index: true, //same as path: '/'
           element: <WebHome />
         },
         {
           path: 'categories',
           element: <WebCategories />
+        },
+        {
+          path: 'products/category/:categoryId',
+          element: <CategoriesDetails />
+        },
+        {
+          path: 'product/:productId',
+          element: <Product />
         },
         {
           path: '*',

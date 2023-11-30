@@ -16,7 +16,7 @@ function Login({ saveCurrentUser }) {
     };
 
     const onSubmit = async users => {
-        const { data } = await axios.post(`https://ecommerce-node4.vercel.app/auth/signin`, users);
+        const { data } = await axios.post(`${import.meta.env.VITE_API_URL}/auth/signin`, users);
         console.log(data);
 
         if (data.message == 'success') {
