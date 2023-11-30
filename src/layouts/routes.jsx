@@ -2,6 +2,7 @@ import React from 'react'
 import { createBrowserRouter } from "react-router-dom";
 import WebLayout from './WebLayout';
 import Register from '../components/web/register/Register';
+import Login from '../components/web/login/Login';
 import WebHome from '../components/web/home/WebHome';
 import WebCategories from '../components/web/categories/WebCategories';
 import WebPageNotFound from '../components/web/pageNotFound/WebPageNotFound';
@@ -18,6 +19,10 @@ export const router = createBrowserRouter([
             {
                 path: 'register',
                 element: <Register />
+            },
+            {
+                path: 'login',
+                element: <Login />
             },
             {
                 path: 'home',

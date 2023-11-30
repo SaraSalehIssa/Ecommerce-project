@@ -1,12 +1,52 @@
-.bg-body-lightSkyBlue, .btn-lightSkyBlue{
+.bg-body-lightSkyBlue,
+.btn-lightSkyBlue {
     background-color: #b6e1fc !important;
 }
 
-.btn-lightSkyBlue:hover{
+.btn-lightSkyBlue:hover {
     background-color: #9dd7fb !important;
 }
 
-.bg-lightSkyBlue{
+.bg-lightSkyBlue {
     background-color: #e7f5fe;
     border-radius: 2%;
+}
+
+.image-card {
+    height: 120px;
+    width: 120px;
+    object-fit: cover;
+}
+
+.swiper {
+    padding: 10px 20px !important;
+}
+
+.swiper-pagination-bullet {
+    background-color: #54b9f8 !important;
+}
+
+.swiper-custom-pagination {
+    display: flex;
+    justify-content: center;
+}
+
+.swiper-button-prev,
+.swiper-button-next {
+    background-color: #9dd7fb;
+    color: black !important;
+    width: 40px !important;
+    height: 40px !important;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+}
+
+.swiper-button-prev::after,
+.swiper-rtl .swiper-button-next::after,
+.swiper-button-next::after,
+.swiper-rtl .swiper-button-prev::after {
+    font-size: 20px !important;
 }

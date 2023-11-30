@@ -1,8 +1,11 @@
 import React from 'react'
+import WebCategories from '../categories/WebCategories'
 
 function WebHome() {
     return (
-        <div>WebHome</div>
+        <>
+            <WebCategories />
+        </>
     )
 }
 
