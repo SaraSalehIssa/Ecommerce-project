@@ -1,29 +1,26 @@
 import React from 'react'
 import { useFormik } from 'formik'
 import Input from '../../shared/Input'
-import { loginSchema } from '../validation/auth'
+import { forgotPasswordSchema } from '../validation/auth'
 import '../../../index.css'
 import axios from 'axios'
 import { toast } from 'react-toastify';
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
-function Login({ saveCurrentUser }) {
+function ForgotPassword() {
     const navigate = useNavigate();
 
     const initialValues = {
         email: '',
+        code: '',
         password: '',
     };
 
     const onSubmit = async users => {
-        const { data } = await axios.post(`${import.meta.env.VITE_API_URL}/auth/signin`, users);
-        console.log(data);
+        const { data } = await axios.patch(`${import.meta.env.VITE_API_URL}/auth/forgotPassword`, users);
 
         if (data.message == 'success') {
-            localStorage.setItem("userToken", data.token);
-            saveCurrentUser();
-
-            toast.success('Login was successful!', {
+            toast.success('Password updated!', {
                 position: "top-right",
                 autoClose: 10000,
                 hideProgressBar: false,
@@ -33,14 +30,14 @@ function Login({ saveCurrentUser }) {
                 progress: undefined,
                 theme: "light",
             });
-            navigate('/home');
+            navigate('/login');
         }
     };
 
     const formik = useFormik({
         initialValues,
         onSubmit,
-        validationSchema: loginSchema
+        validationSchema: forgotPasswordSchema
     });
 
     const inputs = [
@@ -51,6 +48,14 @@ function Login({ saveCurrentUser }) {
             title: 'email',
             placeholder: 'Your email...',
             value: formik.values.email,
+        },
+        {
+            id: 'code',
+            type: 'text',
+            name: 'code',
+            title: 'code',
+            placeholder: 'Your code...',
+            value: formik.values.code,
         },
         {
             id: 'password',
@@ -81,18 +86,18 @@ function Login({ saveCurrentUser }) {
 
     return (
         <div className='container w-50 my-5 p-4 bg-lightSkyBlue'>
-            <h2 className='my-3 text-capitalize text-center'>login</h2>
+            <h2 className='my-3 text-capitalize text-center'>forget password</h2>
             <form onSubmit={formik.handleSubmit}>
                 {renderInputs}
                 <button
                     type="submit"
                     className="btn btn-lightSkyBlue w-100 mt-3 text-capitalize"
                     disabled={!formik.isValid}>
-                    login
+                    submit
                 </button>
             </form>
         </div>
     )
 }
 
-export default Login
+export default ForgotPassword

@@ -1,20 +1,26 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import '../../../index.css'
+import { UserContext } from '../context/User';
+import { CartContext } from '../context/Cart';
 
-function WebNavbar({ user, setUser }) {
+function WebNavbar() {
+  let { userToken, setUserToken, userData, setUserData } = useContext(UserContext);
+  let { count } = useContext(CartContext);
+
   const navigate = useNavigate();
 
   const logout = () => {
     localStorage.removeItem("userToken");
-    setUser(null);
+    setUserToken(null);
+    setUserData(null);
     navigate('/');
   }
   return (
     <>
       <nav className="navbar navbar-expand-lg bg-body-lightSkyBlue">
         <div className="container">
-          <a className="navbar-brand" href="#">The Girl House</a>
+          <Link className="navbar-brand" to='/'>S Shop</Link>
           <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span className="navbar-toggler-icon" />
           </button>
@@ -32,24 +38,26 @@ function WebNavbar({ user, setUser }) {
                 <a className="nav-link" href="#">Products</a>
               </li>
 
-              {user &&
+              {userToken ?
                 <li className="nav-item">
-                  <a className="nav-link" href="#">Cart</a>
-                </li>}
+                  <Link className="nav-link" to='/cart'>
+                    Cart <span className="badge text-bg-secondary">{count}</span>
+                  </Link>
+                </li> : null}
             </ul>
             <ul className="navbar-nav">
               <li className="nav-item dropdown">
-                <a className="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  Account
+                <a className="nav-link dropdown-toggle text-capitalize" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  {userData != null ? userData.userName : 'account'}
                 </a>
                 <ul className="dropdown-menu ">
-                  {!user ? <>
+                  {userToken == null ? <>
                     <li><Link className="dropdown-item text-capitalize" to='/register'>register</Link></li>
                     <li><hr className="dropdown-divider" /></li>
                     <li><Link className="dropdown-item text-capitalize" to='/login'>login</Link></li>
                   </> :
                     <>
-                      <li><Link className="dropdown-item text-capitalize" to='/register'>profile</Link></li>
+                      <li><Link className="dropdown-item text-capitalize" to='/profile'>profile</Link></li>
                       <li><hr className="dropdown-divider" /></li>
                       <li><div className="dropdown-item text-capitalize" onClick={logout}>logout</div></li>
                     </>}

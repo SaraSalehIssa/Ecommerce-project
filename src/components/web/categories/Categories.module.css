@@ -1,0 +1,39 @@
+.card{
+    width: auto;
+    margin-top: 1rem;
+    background-color: #fff;
+    border: #000 solid 1px;
+    border-radius: 6px;
+    -webkit-border-radius: 6px;
+    -moz-border-radius: 6px;
+    -ms-border-radius: 6px;
+    -o-border-radius: 6px;
+}
+
+.cardImg{
+    width: 100%;
+    object-fit: fill;
+}
+
+.cardTitle,
+.cardBtn{
+    font-size: 0.9rem;
+    display: flex;
+    justify-content: center;
+}
+
+.cardBtn{
+    text-decoration: none;
+    background-color: #b6e1fc;
+    color: #000;
+    padding: 0.2rem 0;
+    border-radius: 6px;
+    -webkit-border-radius: 6px;
+    -moz-border-radius: 6px;
+    -ms-border-radius: 6px;
+    -o-border-radius: 6px;
+}
+
+.cardBtn:hover{
+    background-color: #e6f3fc;
+}

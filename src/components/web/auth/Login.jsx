@@ -1,36 +1,34 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { useFormik } from 'formik'
 import Input from '../../shared/Input'
-import { registerSchema } from '../validation/auth'
+import { loginSchema } from '../validation/auth'
 import '../../../index.css'
 import axios from 'axios'
 import { toast } from 'react-toastify';
+import { Link, useNavigate } from 'react-router-dom'
+import { UserContext } from '../context/User'
 
-function Register() {
+function Login() {
+    let { userToken, setUserToken } = useContext(UserContext);
+    const navigate = useNavigate();
+
+    if(userToken){
+        navigate(-1);
+    }
 
     const initialValues = {
-        userName: '',
         email: '',
         password: '',
-        image: null,
-    };
-
-    const handleFieldChange = event => {
-        formik.setFieldValue('image', event.target.files[0]);
     };
 
     const onSubmit = async users => {
-        const formData = new FormData();
-        formData.append("userName", users.userName);
-        formData.append("email", users.email);
-        formData.append("password", users.password);
-        formData.append("image", users.image);
-
-        const { data } = await axios.post(`https://ecommerce-node4.vercel.app/auth/signup`, formData);
+        const { data } = await axios.post(`${import.meta.env.VITE_API_URL}/auth/signin`, users);
 
         if (data.message == 'success') {
-            formik.resetForm();
-            toast.success('Account created successfully, please verify your email to login!', {
+            localStorage.setItem("userToken", data.token);
+            setUserToken(data.token);
+
+            toast.success('Login was successful!', {
                 position: "top-right",
                 autoClose: 10000,
                 hideProgressBar: false,
@@ -40,26 +38,17 @@ function Register() {
                 progress: undefined,
                 theme: "light",
             });
+            navigate('/');
         }
-
-        console.log(data);
     };
 
     const formik = useFormik({
         initialValues,
         onSubmit,
-        validationSchema: registerSchema
+        validationSchema: loginSchema
     });
 
     const inputs = [
-        {
-            id: 'username',
-            type: 'text',
-            name: 'userName',
-            title: 'user name',
-            placeholder: 'Your name...',
-            value: formik.values.userName,
-        },
         {
             id: 'email',
             type: 'email',
@@ -76,13 +65,6 @@ function Register() {
             placeholder: 'Your password...',
             value: formik.values.password,
         },
-        {
-            id: 'image',
-            type: 'file',
-            name: 'image',
-            title: 'user image',
-            onChange: handleFieldChange,
-        },
     ]
 
     const renderInputs = inputs.map((input, index) => {
@@ -95,7 +77,7 @@ function Register() {
                 placeholder={input.placeholder}
                 value={input.value}
                 key={index}
-                onChange={input.onChange || formik.handleChange}
+                onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
                 touched={formik.touched}
                 errors={formik.errors} />
@@ -104,18 +86,19 @@ function Register() {
 
     return (
         <div className='container w-50 my-5 p-4 bg-lightSkyBlue'>
-            <h2 className='my-3 text-capitalize text-center'>registration</h2>
-            <form onSubmit={formik.handleSubmit} encType='multipart/form-data'>
+            <h2 className='my-3 text-capitalize text-center'>login</h2>
+            <form onSubmit={formik.handleSubmit}>
                 {renderInputs}
                 <button
                     type="submit"
                     className="btn btn-lightSkyBlue w-100 mt-3 text-capitalize"
                     disabled={!formik.isValid}>
-                    sign up
+                    login
                 </button>
+                <Link to='/sendCode' className='text-uppercase text-danger text-decoration-none'>forget password?</Link>
             </form>
         </div>
     )
 }
 
-export default Register
+export default Login

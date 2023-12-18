@@ -1,87 +1,18 @@
-import React, { useEffect, useState } from 'react'
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { jwtDecode } from "jwt-decode";
-import WebLayout from './layouts/WebLayout';
-import Register from './components/web/register/Register';
-import Login from './components/web/login/Login';
-import WebHome from './components/web/home/WebHome';
-import WebCategories from './components/web/categories/WebCategories';
-import CategoriesDetails from './components/web/categories/CategoriesDetails';
-import Product from './components/web/products/Product';
-import WebPageNotFound from './components/web/pageNotFound/WebPageNotFound';
-import AdminLayout from './layouts/AdminLayout';
-import AdminHome from './components/dashboard/home/AdminHome';
-import AdminCategories from './components/dashboard/categories/AdminCategories';
-import AdminPageNotFound from './components/dashboard/pageNotFound/AdminPageNotFound';
+import { RouterProvider } from "react-router-dom";
+import { CartContext } from './components/web/context/Cart';
+import { router } from './layouts/routes';
+import { useContext, useEffect } from "react";
+import { UserContext } from "./components/web/context/User";
 
 function App() {
-  const [user, setUser] = useState(null);
-
-  const saveCurrentUser = () => {
-    const token = localStorage.getItem("userToken");
-    const decoded = jwtDecode(token);
-    setUser(decoded);
-  }
-
+  let { setUserToken } = useContext(UserContext);
+  let { setCount, getCartContext } = useContext(CartContext);
   useEffect(() => {
-    if (localStorage.getItem("userToken"))
-      saveCurrentUser();
-  }, [])
-
-  const router = createBrowserRouter([
-    {
-      path: "/",
-      element: <WebLayout user={user} setUser={setUser} />,
-      children: [
-        {
-          path: 'register',
-          element: <Register />
-        },
-        {
-          path: 'login',
-          element: <Login saveCurrentUser={saveCurrentUser} />
-        },
-        {
-          index: true, //same as path: '/'
-          element: <WebHome />
-        },
-        {
-          path: 'categories',
-          element: <WebCategories />
-        },
-        {
-          path: 'products/category/:categoryId',
-          element: <CategoriesDetails />
-        },
-        {
-          path: 'product/:productId',
-          element: <Product />
-        },
-        {
-          path: '*',
-          element: <WebPageNotFound />
-        }
-      ]
-    },
-    {
-      path: "/dashboard",
-      element: <AdminLayout />,
-      children: [
-        {
-          path: 'home',
-          element: <AdminHome />
-        },
-        {
-          path: 'categories',
-          element: <AdminCategories />
-        },
-        {
-          path: '*',
-          element: <AdminPageNotFound />
-        }
-      ]
+    if (localStorage.getItem("userToken") != null) {
+      setUserToken(localStorage.getItem("userToken"));
+      setCount(getCartContext().count);
     }
-  ]);
+  }, []);
 
   return (
     <RouterProvider router={router} />

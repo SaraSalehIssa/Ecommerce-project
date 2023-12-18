@@ -1,0 +1,48 @@
+.profile {
+    display: flex;
+    gap: 1rem;
+}
+
+.profileLinks {
+    width: 10rem;
+}
+
+.userData {
+    flex-grow: 1;
+}
+
+.profileLinks nav {
+    background-color: #000;
+    height: 92vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    padding: 2rem 0;
+}
+
+.profileLinks nav a {
+    color: #b6e1fc;
+    text-decoration-line: none;
+    -moz-text-decoration-line: none;
+    text-align: center;
+}
+
+.cardData {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    background-color: #fff;
+    max-width: 30rem;
+    margin: 3rem auto;
+    text-align: center;
+}
+
+.photo{
+    width: 100%;
+}
+
+.role,
+.email,
+.phone {
+    color: grey;
+    font-size: 18px;
+}

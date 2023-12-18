@@ -12,21 +12,29 @@ import '../../../index.css'
 
 function WebCategories() {
   const getCategories = async () => {
-    const { data } = await axios.get(`${import.meta.env.VITE_API_URL}/categories`);
+    const { data } = await axios.get(`${import.meta.env.VITE_API_URL}/categories/active?limit=5`);
     return data;
   }
+
   const { data, isLoading } = useQuery('web_categories', getCategories);
 
-  if (isLoading)
-    return <h2>Loading...</h2>
+  if (isLoading) {
+    return (
+        <div className="d-flex justify-content-center my-5">
+            <div className="spinner-border" role="status">
+                <span className="visually-hidden">Loading...</span>
+            </div>
+        </div>
+    )
+}
 
   return (
     <>
       <div className='container'>
         <Swiper
           modules={[Navigation, Pagination, Autoplay]}
-          spaceBetween={50}
-          slidesPerView={6}
+          spaceBetween={20}
+          slidesPerView={4.5}
           navigation
           loop={true}
           autoplay={{
@@ -36,15 +44,14 @@ function WebCategories() {
             clickable: true,
             el: '.swiper-custom-pagination'
           }}
-          onSwiper={(swiper) => console.log(swiper)}
-          onSlideChange={() => console.log('slide change')}
+          // onSwiper={(swiper) => console.log(swiper)}
+          // onSlideChange={() => console.log('slide change')}
         >
           {data.categories.length ? data.categories.map((category) =>
-            <SwiperSlide className='swiper' key={category._id}>
+            <SwiperSlide className='swiper mx-auto d-flex justify-content-center align-items-center' key={category._id}>
               <Link to={`/products/category/${category._id}`}>
                 <div>
-                  <img src={category.image.secure_url} className="rounded-circle image-card p-3" alt="category image..." />
-                  <h5 className="text-center fs-5">{category.name}</h5>
+                  <img src={category.image.secure_url} className="rounded-circle image-card p-2" alt="category image..." />
                 </div>
               </Link>
             </SwiperSlide>

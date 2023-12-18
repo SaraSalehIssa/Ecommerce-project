@@ -1,0 +1,31 @@
+.info{
+    text-align: start;
+    padding: 1rem !important;
+    width: 100%;
+}
+
+.data{
+    margin: 1rem !important;
+}
+
+.title{
+    text-transform: uppercase;
+    font-size: large;
+    font-weight: bold;
+}
+
+.btn {
+    text-transform: uppercase;
+    padding: 0.8rem 1.8rem;
+    background-color: #b6e1fc !important;
+    border-radius: 6px;
+    -webkit-border-radius: 6px;
+    -moz-border-radius: 6px;
+    -ms-border-radius: 6px;
+    -o-border-radius: 6px;
+}
+
+.btn:hover {
+    color: #b6e1fc !important;
+    background-color: #000 !important;
+}

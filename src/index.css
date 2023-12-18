@@ -1,21 +1,33 @@
-.bg-body-lightSkyBlue,
-.btn-lightSkyBlue {
+body {
+    background-color: #e6f3fc !important;
+}
+
+.bg-body-lightSkyBlue {
     background-color: #b6e1fc !important;
 }
 
+.btn-lightSkyBlue {
+    background-color: #e6f3fc !important;
+}
+
 .btn-lightSkyBlue:hover {
-    background-color: #9dd7fb !important;
+    color: #b6e1fc !important;
+    background-color: #000 !important;
+}
+
+.btn-lightSkyBlue:hover .a-lightSkyBlue {
+    color: #b6e1fc !important;
 }
 
 .bg-lightSkyBlue {
-    background-color: #e7f5fe;
+    background-color: #9dd7fb;
     border-radius: 2%;
 }
 
 .image-card {
-    height: 120px;
-    width: 120px;
-    object-fit: cover;
+    height: 150px;
+    width: 150px;
+    object-fit: contain;
 }
 
 .swiper {

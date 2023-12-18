@@ -1,50 +1,51 @@
 import axios from 'axios';
-import React from 'react'
+import React, { useContext } from 'react'
 import { useQuery } from 'react-query';
 import { useParams } from 'react-router-dom'
-import ReactImageMagnify from 'react-image-magnify';
+import { CartContext } from '../context/Cart';
+import style from './Product.module.css';
 
 function Product() {
     const { productId } = useParams();
+    const { addToCartContext } = useContext(CartContext);
 
     const getProduct = async () => {
         const { data } = await axios.get(`${import.meta.env.VITE_API_URL}/products/${productId}`);
-        console.log(data);
         return data.product;
     }
 
-    const { data, isLoading } = useQuery('product_details', getProduct);
-    console.log(data)
+    const addToCart = async (productId) => {
+        const result = await addToCartContext(productId);
+    }
 
-    if (isLoading)
-        return <h2>Loading...</h2>
+    const { data, isLoading } = useQuery('product_details', getProduct);
+
+    if (isLoading) {
+        return (
+            <div className="d-flex justify-content-center my-5">
+                <div className="spinner-border" role="status">
+                    <span className="visually-hidden">Loading...</span>
+                </div>
+            </div>
+        )
+    }
 
     return (
         <div className='container products'>
             <div className="row">
-                <div className="col-lg-4">
-                    {data.subImages.map((img, index) =>
-                        <React.Fragment key={index}>
-                            <ReactImageMagnify {...{
-                                smallImage: {
-                                    alt: 'product image',
-                                    isFluidWidth: true,
-                                    src: img.secure_url
-                                },
-                                largeImage: {
-                                    src: img.secure_url,
-                                    width: 1200,
-                                    height: 1800
-                                },
-                                isHintEnabled: true,
-                                enlargedImagePosition: 'over'
-                            }} />
-                        </React.Fragment>
-                    )}
-                </div>
-                <div className="col-lg-8">
-                    <h2>{data.name}</h2>
-                    <p>{data.price}</p>
+                {data.subImages.map((img, index) => (
+                    <div className="col-lg-4 d-flex">
+                        <img src={img.secure_url} className="d-flex justify-content-between w-100" alt="product image" key={index} />
+                    </div>
+                ))}
+
+                <div className={`${style.info}`}>
+                    <h5 className={`${style.data}`}><span className={`${style.title}`}>name: </span>{data.name}</h5>
+                    <p className={`${style.data}`}><span className={`${style.title}`}>price: </span> {data.price} <span>$</span></p>
+                    <p className={`${style.data}`}><span className={`${style.title}`}>description: </span> {data.description}</p>
+                    <div className='d-flex justify-content-center'>
+                        <button className={`${style.btn}`} onClick={() => addToCart(data._id)}>Add To Cart</button>
+                    </div>
                 </div>
             </div>
         </div>
