@@ -20,7 +20,7 @@ function Order() {
   return (
     <div className='container products'>
       <div className="row">
-        {data.length !== 0 && data.map((order, index) => (
+        {data?.length !== 0 && data?.map((order, index) => (
           <div key={index}>
             <h2 className='text-capitalize'>order {index}</h2>
             <table className="table">
