@@ -21,6 +21,9 @@ import AdminHome from '../components/dashboard/home/AdminHome';
 import AdminCategories from '../components/dashboard/categories/AdminCategories';
 import AdminPageNotFound from '../components/dashboard/pageNotFound/AdminPageNotFound';
 import ProtectedRoute from '../components/web/protectedRoute/ProtectedRoute';
+import Products from '../components/web/products/Products';
+import Review from '../components/web/products/Review';
+import AllProducts from '../components/web/products/AllProducts';
 
 export const router = createBrowserRouter([
     {
@@ -73,11 +76,24 @@ export const router = createBrowserRouter([
                 element: <WebCategories />
             },
             {
+                path: 'products',
+                element: <Products />
+            },
+            {
+                path: 'allProducts',
+                element: <AllProducts />
+            },
+            {
                 path: 'cart',
                 element:
                     <ProtectedRoute>
                         <Cart />
                     </ProtectedRoute>
+            },
+            {
+                path: 'review/:productId',
+                element:
+                    <Review />
             },
             {
                 path: 'createOrder',

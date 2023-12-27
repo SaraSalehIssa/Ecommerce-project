@@ -137,7 +137,9 @@ function Cart() {
                             {count != 0 && <div className='d-flex justify-content-center'>
                                 <button className='clearBtn' onClick={clearAll}>clear all</button>
                             </div>}
+
                         </div>
+
                         <div className="cart-summary">
                             <h2>Cart summary</h2>
                             <div className="summery-items">
@@ -159,20 +161,38 @@ function Cart() {
                                     </div>
                                     <span>%21.00</span>
                                 </div>
-                                <div className="summary-footer">
-                                    <label>Subtotal</label>
-                                    <span>$1234.00</span>
-                                </div>
-                                <div className="summary-footer">
-                                    <label className="total">Total</label>
-                                    <span>$1345.00</span>
-                                </div>
-                                <div className="btn checkout btn-lightSkyBlue">
-                                    <Link to="/createOrder" className='a-lightSkyBlue'>Chekout</Link>
-                                </div>
+                                {data?.products ? (
+                                    (() => {
+                                        let price = 0;
+
+                                        data.products.map((product) => {
+                                            price += product.quantity * product.details.price;
+                                            return null;
+                                        });
+                                        return (
+                                            <div>
+                                                <div className="summary-footer my-3">
+                                                    <label>Subtotal</label>
+                                                    <span>{price} $</span>
+                                                </div>
+                                                <div className="summary-footer my-3">
+                                                    <label className="total">Total</label>
+                                                    <span>{price} $</span>
+                                                </div>
+                                                <div className="btn checkout btn-lightSkyBlue d-flex justify-content-center my-5">
+                                                    <Link to="/createOrder" className='a-lightSkyBlue'>Checkout</Link>
+                                                </div>
+                                            </div>
+                                        );
+                                    })()
+                                ) : (
+                                    <h2>Cart is empty!</h2>
+                                )}
                             </div>
                         </div>
+
                     </div>
+
                     <div className="row">
                         <h2>Have a coupon ?</h2>
                         <p>Add your code for an instant cart discount</p>

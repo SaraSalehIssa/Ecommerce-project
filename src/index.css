@@ -34,7 +34,7 @@ body {
     padding: 10px 20px !important;
 }
 
-.swiper-pagination-bullet {
+.swiper-pagination-bullet{
     background-color: #54b9f8 !important;
 }
 
@@ -61,4 +61,14 @@ body {
 .swiper-button-next::after,
 .swiper-rtl .swiper-button-prev::after {
     font-size: 20px !important;
+}
+
+.review-img{
+    width: 10rem;
+    height: 10rem;
+    object-fit: cover;
+}
+
+.bg-review{
+    background-color: #9dd7fb !important;
 }

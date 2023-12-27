@@ -35,7 +35,7 @@ function WebNavbar() {
               </li>
 
               <li className="nav-item">
-                <a className="nav-link" href="#">Products</a>
+                <Link className="nav-link" to='/products'>Products</Link>
               </li>
 
               {userToken ?
