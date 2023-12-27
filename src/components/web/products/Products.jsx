@@ -44,17 +44,19 @@ function Products() {
             </div>
 
             <div className="container d-flex justify-content-center">
-                {data.products.length ? data.products.map((product) =>
-                    <div className="col-lg-3 px-3" key={product._id}>
-                        <div className={`${style.card}`}>
-                            <img src={product.mainImage.secure_url} className={`${style.cardImg}`} alt="product image..." />
-                            <div className="card-body p-2">
-                                <p className={`${style.cardTitle}`}>{product.name}</p>
-                                <Link to={`/product/${product._id}`} className={`${style.cardBtn}`}>See Details</Link>
+                <div className='row'>
+                    {data.products.length ? data.products.map((product) =>
+                        <div className="col-lg-3 px-3" key={product._id}>
+                            <div className={`${style.card}`}>
+                                <img src={product.mainImage.secure_url} className={`${style.cardImg}`} alt="product image..." />
+                                <div className="card-body p-2">
+                                    <p className={`${style.cardTitle}`}>{product.name}</p>
+                                    <Link to={`/product/${product._id}`} className={`${style.cardBtn}`}>See Details</Link>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                ) : 'No products found!'}
+                    ) : 'No products found!'}
+                </div>
             </div>
 
             <div className='container px-5'>
@@ -62,7 +64,7 @@ function Products() {
                     <>
                         <div className='row d-flex justify-content-center mx-auto my-5'>
                             {Array.from({ length: Math.ceil(parseInt(data.total) / parseInt(data.page)) }, (_, i) => (
-                                <nav aria-label="..." className="col-1 p-0" key={i}>
+                                <nav aria-label="..." className="col-lg-1 p-0" key={i}>
                                     <ul className="pagination d-flex justify-content-center">
                                         <li>
                                             <button className="page-link" onClick={() => handlePageChange(i + 1)}>
