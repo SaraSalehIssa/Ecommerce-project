@@ -2,6 +2,7 @@ import React, { useContext, useState } from 'react'
 import '../../../index.css'
 import { OrderContext } from '../context/Order'
 import { useNavigate, useParams } from 'react-router-dom'
+import { toast } from 'react-toastify';
 
 function Review() {
     const navigate = useNavigate();
@@ -24,22 +25,20 @@ function Review() {
         e.preventDefault();
 
         try {
-            const data = await addNewReviewContext(formData.comment, formData.rating, productId);
-            console.log(data);
+            const { data } = await addNewReviewContext(formData.comment, formData.rating, productId);
 
-            if (data.message == 'success') {
-                toast.success('Your feedback has been sent!', {
-                    position: "top-right",
-                    autoClose: 10000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    theme: "light",
-                });
-                navigate('/');
-            }
+            toast.success('Your feedback has been sent!', {
+                position: "top-right",
+                autoClose: 10000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            });
+
+            navigate('/');
         } catch (error) {
             console.log(error);
             navigate('/');
